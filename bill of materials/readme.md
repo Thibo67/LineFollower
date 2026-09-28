@@ -4,4 +4,4 @@
 |volgnummer|naam|omschrijving|nieuw/recup|kostprijs/stuk|aantal|subtotaal|
 |----------|----|------------|-----------|---------|------|---------|
 |         1|    |            |           |              |      |         |
-ik wil
+ik wil       5      kip          
