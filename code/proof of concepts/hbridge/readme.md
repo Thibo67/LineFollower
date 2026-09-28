@@ -1,60 +1,24 @@
 # H-Bridge proof of concept
 
-## Doel
+Met deze test controleren we of de TB6612FNG twee motoren onafhankelijk kan aansturen.
 
-Deze Proof of Concept (PoC) toont aan dat twee DC-motoren onafhankelijk van elkaar kunnen worden aangestuurd met een ESP32 en een TB6612FNG motor driver.
+De twee motoren kunnen apart:
+- Vooruit en achteruit draaien.
+- Verschillende snelheden krijgen.
+- Tegelijk draaien.
 
-De volgende functionaliteiten worden aangetoond:
+De ESP32 stuurt de TB6612FNG aan. De TB6612FNG stuurt vervolgens de twee motoren aan.
 
-- Motor 1 en motor 2 onafhankelijk aansturen
-- Beide motoren vooruit laten draaien
-- Beide motoren achteruit laten draaien
-- De snelheid van iedere motor afzonderlijk regelen
-- Beide motoren tegelijkertijd met verschillende snelheden laten draaien
-- De draairichting van iedere motor afzonderlijk veranderen
+De snelheid wordt geregeld met PWM van 0 tot 255. Een negatieve waarde laat de motor achteruit draaien.
 
-## Hardware
+### Testcommando's
 
-- ESP32 WROOM 4MB DevKit V1
-- TB6612FNG Dual H-Bridge Motor Driver
-- 2x DC-motor
-- 5-6 V motorvoeding
-- USB-C kabel
-- Jumper wires
+`M1 150` → Motor 1 vooruit  
+`M1 -150` → Motor 1 achteruit  
+`M2 100` → Motor 2 vooruit  
+`M2 -100` → Motor 2 achteruit  
+`STOP` → Beide motoren stoppen
 
-## Werking
+### Resultaat
 
-De TB6612FNG bevat twee onafhankelijke H-bruggen.
-
-De eerste H-brug stuurt motor 1 aan en de tweede H-brug stuurt motor 2 aan.
-
-De ESP32 bepaalt:
-
-- De draairichting via IN1 en IN2
-- De snelheid via PWM
-- Of de H-brug actief is via STBY
-
-De snelheid wordt ingesteld met een waarde van -255 tot +255.
-
-| Waarde | Betekenis |
-|---|---|
-| -255 | Volledig achteruit |
-| -100 | Achteruit |
-| 0 | Stop |
-| +100 | Vooruit |
-| +255 | Volledig vooruit |
-
-## Aansluitingen
-
-### Motor 1
-
-| ESP32 | TB6612FNG |
-|---|---|
-| GPIO 25 | PWMA |
-| GPIO 27 | AIN1 |
-| GPIO 14 | AIN2 |
-
-Motor 1 wordt aangesloten op:
-
-```text
-AO1 - Motor 1 - AO2
+De twee motoren kunnen onafhankelijk in snelheid en richting worden geregeld. De H-Bridge werkt dus zoals verwacht.
