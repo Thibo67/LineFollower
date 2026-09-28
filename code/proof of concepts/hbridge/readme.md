@@ -1,10 +1,5 @@
 # H-Bridge proof of concept
 
-minimale hard- & software + stappenplan dat aantoont dat 2 motoren onafhankelijk van elkaar kunnen draaien, en (traploos) regelbaar zijn in snelheid en draairichting.
-
-
-# H-Bridge Proof of Concept
-
 ## Doel
 
 Deze Proof of Concept (PoC) toont aan dat twee DC-motoren onafhankelijk van elkaar kunnen worden aangestuurd met een ESP32 en een TB6612FNG motor driver.
