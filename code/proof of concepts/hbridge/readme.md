@@ -19,8 +19,7 @@ De snelheid wordt geregeld met PWM van 0 tot 255. Een negatieve waarde laat de m
 - `M2 -100` -> Motor 2 achteruit
 - `STOP` -> Beide motoren stoppen
 ### Schema
-![Uploading {0566AB66-4D2F-42B8-AA5E-0511847F4952}.png…]()
-
+<img width="816" height="600" alt="{0566AB66-4D2F-42B8-AA5E-0511847F4952}" src="https://github.com/user-attachments/assets/b919c25f-1768-4f7b-a70c-94b44cbfc0e0" />
 
 ### Resultaat
 
