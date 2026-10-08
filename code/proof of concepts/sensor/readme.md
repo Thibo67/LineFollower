@@ -8,7 +8,7 @@ Deze PoC verifieert de werking van volgende zaken:
 
 <img width="757" height="513" alt="{A4496DDC-DFF1-4712-8406-C0DA797E6595}" src="https://github.com/user-attachments/assets/55fa3153-e828-4a8b-aa1b-629b26d04bbc" />
 
-Stappenplan
+# Stappenplan
 - Sluit de componenten correct aan volgens bovenstaande schema.
 - Verbind de microcontroller met de pc via een datakabel.
 - Verify/Upload de code naar de microcontroller via de Arduino IDE.
