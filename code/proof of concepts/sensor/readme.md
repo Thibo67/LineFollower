@@ -1,3 +1,4 @@
 # Sensoren proof of concept
 
-minimale hard- en software die aantoont dat minimaal 6 sensoren onafhankelijk van elkaar kunnen uitgelezen worden (geen calibratie, normalisatie of interpolatie). Hierbij moet een zo groot mogelijk bereik van de AD converter benut worden (indien van toepassing)
+<img width="757" height="513" alt="{A4496DDC-DFF1-4712-8406-C0DA797E6595}" src="https://github.com/user-attachments/assets/55fa3153-e828-4a8b-aa1b-629b26d04bbc" />
+
