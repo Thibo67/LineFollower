@@ -6,7 +6,8 @@ Deze PoC verifieert de werking van volgende zaken:
 - Hierbij wordt een zo groot mogelijk bereik van de AD converter benut (0 tot 4095 op de ESP32 door het instellen van de juiste attenuatie).
 - Bij een correcte werking zal de sensor een hoge waarde geven bij lichte kleuren (max 4095) en een lage waarde bij donkere kleuren.
 
-<img width="820" height="577" alt="image" src="https://github.com/user-attachments/assets/20aaedf1-10f1-44a7-b75a-1286a956db93" />
+<img width="882" height="565" alt="image" src="https://github.com/user-attachments/assets/2f2e6ab3-a1e9-408b-b16f-212b1d706688" />
+
 
 
 # Stappenplan
