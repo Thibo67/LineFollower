@@ -1,10 +1,10 @@
 /*
-  PoC: QTR-8A Sensor Uitlezen (8 Sensoren)
+  PoC: QTR-8A Sensor Uitlezen via ADC1 (6 Sensoren)
   Microcontroller: ESP32 DevKitV1
 */
 
-// Alle 8 analoge pinnen volgens jouw aansluiting
-const int analogPins[8] = {34, 35, 32, 33, 25, 26, 27, 14};
+// Gebruik uitsluitend ADC1 pinnen (geen conflict met Wi-Fi/Bluetooth)
+const int analogPins[6] = {36, 39, 34, 35, 32, 33}; 
 const int irPin = 23; // IR aangesloten op D23
 
 void setup() {
@@ -15,20 +15,20 @@ void setup() {
   digitalWrite(irPin, HIGH);
 
   // Pinnen instellen & maximale ADC attenuatie (0 - 4095)
-  for (int i = 0; i < 8; i++) {
+  for (int i = 0; i < 6; i++) {
     pinMode(analogPins[i], INPUT);
     analogSetPinAttenuation(analogPins[i], ADC_11db);
   }
 }
 
 void loop() {
-  Serial.print("Sensoren (1-8): ");
-  for (int i = 0; i < 8; i++) {
+  Serial.print("Sensoren (1-6): ");
+  for (int i = 0; i < 6; i++) {
     int val = analogRead(analogPins[i]);
     Serial.print(val);
     Serial.print("\t");
   }
   Serial.println();
 
-  delay(250);
+  delay(2500);
 }
