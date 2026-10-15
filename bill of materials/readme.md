@@ -10,5 +10,6 @@
 |5 | 18650|Batterij| nieuw |5.00 | 2| 10.00|
 | 6|2x 18650 Batterijhouder - Klemcontacten - Draden per Cel | Batterijhouder| nieuw |2.00 | 1|2.00 | 
 | 7|PCB Prototype Board Green 8 X 10 | Protoboard |nieuw | 5.18| 1| 5.18| 
-| 8|3D Printed N20 Motor Mounts | nieuw| | | ||
-| 9| 3D Printed Wielen | Wielen| nieuw | | | |
+| 8|3D Printed N20 Motor Mounts |Motoren klemmen |nieuw|  | 2| |
+| 9| 3D Printed Wielen | Wielen| nieuw | |2 | |
+| 10| Mini 3PI car N20 caster | Robot ball wheel|nieuw | 1.50| 1|1.50 |
