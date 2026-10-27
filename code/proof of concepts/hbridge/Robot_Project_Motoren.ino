@@ -1,5 +1,5 @@
 // Definieer de pins voor Motor 1 (gekoppeld aan IN1 en IN2)
-const int motor1Pin1 = 5;   // D5
+const int motor1Pin1 = 16;   // D16
 const int motor1Pin2 = 17;  // D17
 
 // Definieer de pins voor Motor 2 (gekoppeld aan IN3 en IN4)
