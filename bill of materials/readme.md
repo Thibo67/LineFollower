@@ -14,8 +14,8 @@
 | 9| 3D Printed Wielen | Wielen| nieuw |€  3 |2 |€  6|
 | 10| Mini 3PI car N20 caster | Robot ball wheel|nieuw | € 1.50| 1|€ 1.50 |
 | 11|  | | | | | |
-| 12| Led | | recup | |1 | |
-| 13| Knop | | recup | |1 | |
+| 12| Led + voorschakelweerstanden | RGD led, 220Ohm| recup | |1 | |
+| 13| Knop + pulldown weerstand| drukknop, 1kOhm | recup | |1 | |
 | 14| Soldeerdraad | | recup | | x | |
 | 15| Male- Female headers | | recup | | x | |
 | 16| 22AWG| | recup | | x | |
