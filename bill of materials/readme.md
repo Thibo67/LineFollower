@@ -13,3 +13,10 @@
 | 8|3D Printed N20 Motor Mounts |Motoren klemmen |nieuw| € 1 | 2| € 2 |
 | 9| 3D Printed Wielen | Wielen| nieuw |€  3 |2 |€  6|
 | 10| Mini 3PI car N20 caster | Robot ball wheel|nieuw | € 1.50| 1|€ 1.50 |
+| 11|  | | | | | |
+| 12| Led | | recup | |1 | |
+| 13| Knop | | recup | |1 | |
+| 14| Soldeerdraad | | recup | | x | |
+| 15| Male- Female headers | | recup | | x | |
+| 16| 22AWG| | recup | | x | |
+| 17| Schakelaar | NO 2 pin schakelaar| nieuw |€ 0.99 | 1 | €0.99 |
