@@ -1,4 +1,3 @@
-
 // ===============================
 // PINNEN
 // ===============================
@@ -89,15 +88,15 @@ void loop()
   // --------------------------------
   if (buttonPressed)
   {
+    // Interrupt-vlag direct resetten buiten de debounce-if
+    buttonPressed = false;
+
     unsigned long currentMillis = millis();
 
     // Debounce
     if (currentMillis - lastButtonTime >= debounceDelay)
     {
       lastButtonTime = currentMillis;
-
-      // Interrupt-vlag resetten
-      buttonPressed = false;
 
       // Status veranderen
       isInterrupted = !isInterrupted;
