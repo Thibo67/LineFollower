@@ -10,7 +10,7 @@ De twee motoren kunnen apart:
 De ESP32 stuurt de DRV8833 aan. De DRV8833 stuurt vervolgens de twee motoren aan.
 
 ### Schema
-<img width="816" height="600" alt="{0566AB66-4D2F-42B8-AA5E-0511847F4952}" src="https://github.com/user-attachments/assets/b919c25f-1768-4f7b-a70c-94b44cbfc0e0" />
+<img width="993" height="647" alt="image" src="https://github.com/user-attachments/assets/f5eef5f7-f40f-492c-b2df-03af35a226af" />
 
 ### Resultaat
 
