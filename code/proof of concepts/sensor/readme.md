@@ -15,4 +15,3 @@ Deze PoC verifieert de werking van volgende zaken:
 - Verbind de microcontroller met de pc via een datakabel.
 - Verify/Upload de code naar de microcontroller via de Arduino IDE.
 - Open de Seriële Monitor (Ctrl + Shift + M) op 115200 baud.
-- Verifieer de werking door te vergelijken met bovenstaande video (hoge waarden bij lichte oppervlakken, lage waarden bij donkere/zwarte oppervlakken).
