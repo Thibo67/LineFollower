@@ -20,4 +20,4 @@
 | 15| Male- Female headers | | recup | | x | |
 | 16| 22AWG| | recup | | x | |
 | 17| Schakelaar | NO 2 pin schakelaar| nieuw |€ 0.99 | 1 | €0.99 |
-| 18| Totaalprijs | | | | | € |
+| 18| Totaalprijs | | | | | €56,91 |
