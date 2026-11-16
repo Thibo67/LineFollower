@@ -23,17 +23,17 @@ Open een webbrowser (bijv. Chrome of Safari) en navigeer naar het IP-adres: [htt
 Je komt nu op het web-dashboard van de robot waar je live de status kunt aflezen, de robot kunt starten/stoppen en de PID-parameters direct kunt aanpassen. 
 
 #### commando's
-De besturing en configuratie verlopen via de knoppen en invoervelden in de webinterface:   
-start — Klik op de groene START-knop om de motoren en de PID-regellus te activeren.   
-stop — Klik op de rode STOP-knop om de motoren direct stil te zetten.   
-debug [on/off] — In de code is de variabele debug ingebouwd; de webinterface toont de actuele status ("RIJDT" of "GESTOPT").   
-et cycle [µs] — De cyclustijd van de regellus is standaard ingesteld op 20000 µs (20 ms / 50 Hz) voor een stabiele bemonstering.   
-set power [0..255] — Stelt het basismotorvermogen in (standaardwaarde: 100).   
-set diff [0..1] — Stelt de stuurgevoeligheid/differentieelcoëfficiënt in (standaardwaarde: 0.5).   
-set kp [0..] — Proportionele versterking van de PID-regelaar.   
-set ki [0..] — Integrale versterking van de PID-regelaar (wordt automatisch geschaald naar de cyclustijd).   
-set kd [0..] — Derivatieve versterking van de PID-regelaar (wordt automatisch geschaald naar de cyclustijd).   
-calibrate black / calibrate white — De sensor array leest 6 analoge ADC1-pinnen uit (GPIO 36, 39, 34, 35, 32, 33). De ingelezen waarden voor zwart (params.black) en wit (params.white) worden in de EEPROM opgeslagen om de sensormetingen per kanaal te normaliseren tussen 0 en 1000.   
+Webinterface Commando's & Instellingen
+
+De webinterface biedt een dashboard met de status ("RIJDT" of "GESTOPT") en de volgende bedieningsmogelijkheden:
+START (Knop): Zet de robot in de rij-modus (robotRunning = true).
+STOP (Knop): Zet de robot stil en schakelt de motoren uit (robotRunning = false).
+Kp: Proportionele versterking van de PID-regelaar (invoerveld).
+Ki: Integrale versterking van de PID-regelaar (invoerveld, wordt intern geschaald naar de vaste cyclustijd van 20 ms).
+Kd: Derivatieve versterking van de PID-regelaar (invoerveld, wordt intern geschaald naar de vaste cyclustijd van 20 ms).
+Power: Basismotorvermogen (invoerveld, waarde tussen 0 en 255).
+Diff: Stuurgevoeligheid / differentieelcoëfficiënt (invoerveld, waarde tussen 0.0 en 1.0).
+Opslaan & Doorvoeren (Knop): Schrijft de ingevoerde parameters direct weg naar het EEPROM-geheugen (512 bytes) van de ESP32, zodat deze na herstart bewaard blijven.
 
 ### kalibratie
 De robot gebruikt kwadratische interpolatie over de 6 IR-sensoren (geplaatst op een onderlinge afstand van 15 mm).De min/max omgevingswaarden van het zwarte en witte oppervlak worden opgeslagen in het geheugen.  
