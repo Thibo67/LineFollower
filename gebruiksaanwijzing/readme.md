@@ -36,8 +36,15 @@ Diff: Stuurgevoeligheid / differentieelcoëfficiënt (invoerveld, waarde tussen 
 Opslaan & Doorvoeren (Knop): Schrijft de ingevoerde parameters direct weg naar het EEPROM-geheugen (512 bytes) van de ESP32, zodat deze na herstart bewaard blijven.
 
 ### kalibratie
-De robot gebruikt kwadratische interpolatie over de 6 IR-sensoren (geplaatst op een onderlinge afstand van 15 mm).De min/max omgevingswaarden van het zwarte en witte oppervlak worden opgeslagen in het geheugen.  
-Dit zorgt ervoor dat elke analoge sensormeting wordt omgerekend naar een genormaliseerde waarde van 0 tot 1000, zodat de robot exact de afwijking t.o.v. de lijn in millimeters kan berekenen.
+Om de sensoren nauwkeurig in te stellen op jouw specifieke ondergrond en lijn, wordt vóór het eerste gebruik eenmalig de kalibratie-firmware (Robot_kalibratie.ino) op de ESP32 geladen.
+Upload de kalibratiesketch naar de ESP32.   
+Maak verbinding via USB (Arduino Seriële Monitor op 115200 baud) of Bluetooth via de terminal (apparaatnaam: ESP32_LineFollower).  
+Zet de robot op de witte ondergrond en stuur het commando calibrate white.   
+Zet de robot over de zwarte lijn en stuur het commando calibrate black.  
+Upload hierna het finale hoofdprogramma (Robot_bijna_klaar.ino).Werking in het systeem:
+De ingelezen uiterste ADC-waarden per sensor (GPIO 36, 39, 34, 35, 32, 33) worden permanent in het EEPROM-geheugen opgeslagen.
+Het hoofdprogramma leest deze structuur bij het opstarten in om de ruwe sensorwaarden per kanaal te normaliseren naar een schaal van 0 tot 1000. 
+Dit voorkomt een deling door nul en zorgt ervoor dat de kwadratische interpolatie de positie van de lijn op de millimeter nauwkeurig kan berekenen. 
 
 ### settings  
 Cycle time: 20000 µs (20 ms)   
