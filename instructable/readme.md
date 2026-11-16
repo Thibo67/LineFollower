@@ -56,11 +56,10 @@ Selecteer de juiste COM-poort onder Hulpmiddelen > Poort.
 Klik op de knop Uploaden (of druk op Ctrl + U).
 Verification: De Arduino IDE geeft de melding "Done uploading" weer en de Seriële Monitor (op 115200 baud) toont de opstartmeldingen met het IP-adres van het Wi-Fi Access Point.
 
-# 6.Inbedrijfstelling & Kalibratie: Eerste run.
+# 5. Inbedrijfstelling & Kalibratie (Eerste run)
+Voeding inschakelen: Plaats twee opgeladen 18650 batterijen in de batterijhouder.Schakel de robot in via Schakelaar S1.
+Draadloze verbinding maken (Bluetooth):Zet Bluetooth aan op je laptop of smartphone en koppel met het apparaat ESP32_LineFollower.Open een seriële terminal (zoals PuTTY of Serial Bluetooth Terminal) en maak verbinding met een baudrate van 115200. 
+(Alternatief: Sluit de USB-kabel aan en open de Arduino Seriële Monitor).
 
-Ontkoppel de USB-kabel en plaats twee opgeladen 18650 batterijen in de batterijhouder.
-Schakel de robot in via Schakelaar S1. 
-De LED op D21 zal continu branden.
-Verbind een smartphone of laptop met het Wi-Fi-netwerk ESP32_LineFollower (Wachtwoord: 12345678password).Open een browser en navigeer naar [http://192.168.4.1](http://192.168.4.1).
-Plaats de robot op de baan en druk op de fysieke startknop (GPIO 22) of klik op START in de webinterface.
-Verification: De LED begint te knipperen (elke 300 ms) en de robot start met rijden en volgt de lijn via de PID-regeling.
+Sensoren kalibreren:Wit vlak: Plaats alle 6 sensoren boven het witte oppervlak en stuur het commando white via Bluetooth/Serial.
+Zwart vlak: Plaats alle 6 sensoren boven de zwarte lijn en stuur het commando black via Bluetooth/Serial.Controle: Het systeem print "Waardes opgeslagen in EEPROM!" om te bevestigen dat de kalibratiewaarden bewaard zijn.Sensor-uitlezing controleren:Na kalibratie sturen de sensoren continu hun analoge ADC-waarden (0 - 4095) door op het scherm om te controleren of alle 6 de sensoren (GPIO 36, 39, 34, 35, 32, 33) het verschil tussen zwart en wit correct registreren.   
