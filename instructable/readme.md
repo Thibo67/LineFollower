@@ -61,6 +61,12 @@ Voeding inschakelen: Plaats twee opgeladen 18650 batterijen in de batterijhouder
 Draadloze verbinding maken (Bluetooth):Zet Bluetooth aan op je laptop of smartphone en koppel met het apparaat ESP32_LineFollower.Open een seriële terminal (zoals PuTTY of Serial Bluetooth Terminal) en maak verbinding met een baudrate van 115200. 
 (Alternatief: Sluit de USB-kabel aan en open de Arduino Seriële Monitor).
 
-Sensoren kalibreren: 
-Wit vlak: Plaats alle 6 sensoren boven het witte oppervlak en stuur het commando white via Bluetooth/Serial.
-Zwart vlak: Plaats alle 6 sensoren boven de zwarte lijn en stuur het commando black via Bluetooth/Serial.Controle: Het systeem print "Waardes opgeslagen in EEPROM!" om te bevestigen dat de kalibratiewaarden bewaard zijn. Sensor-uitlezing controleren: Na kalibratie sturen de sensoren continu hun analoge ADC-waarden (0 - 4095) door op het scherm om te controleren of alle 6 de sensoren (GPIO 36, 39, 34, 35, 32, 33) het verschil tussen zwart en wit correct registreren.   
+Kalibratieprogramma uploaden:Tijdelijke firmware.
+Sluit de ESP32 met de USB-kabel aan op je computer.
+Open het bestand Robot_kalibratie.ino (uit code/proof of concepts/Kalibratie) in de Arduino IDE.
+Selecteer het board DOIT ESP32 DEVKIT V1 en de juiste COM-poort.Klik op Uploaden (Ctrl + U).
+
+Sensoren kalibreren via Bluetooth of USB:EEPROM vullen.
+Schakel de robot in via Schakelaar S1 (gegeveden door de 18650 batterijen).Maak verbinding met de robot:Via Bluetooth: Koppel op je pc of smartphone met het apparaat ESP32_LineFollower en open een seriële terminal (zoals PuTTY of Serial Bluetooth Terminal) op 115200 baud.Via USB: Open de Seriële Monitor in Arduino IDE op 115200 baud.Witte ondergrond: Plaats alle 6 de sensoren (GPIO 36, 39, 34, 35, 32, 33) boven de witte ondergrond en stuur exact het commando calibrate white.Zwarte lijn: Plaats alle 6 de sensoren boven de zwarte lijn en stuur exact het commando calibrate black.Controleer of de melding "Waardes opgeslagen in EEPROM!" op het scherm verschijnt. De minimale en maximale reflectiewaarden staan nu permanent in het EEPROM-geheugen van de ESP32 geschreven.3.
+
+Finale hoofdcode uploaden:Finaal programma.Open het hoofdprogramma Robot_bijna_klaar.ino in de Arduino IDE.Upload de code naar de ESP32.De finale code leest tijdens de setup() automatisch de opgeslagen kalibratiewaarden uit het EEPROM-geheugen in (EEPROM_readAnything(0, params)), zodat de kwadratische interpolatie direct met de juiste drempelwaarden rekent.Verbind je smartphone met het Wi-Fi-netwerk ESP32_LineFollower (Wachtwoord: 12345678password), surf naar [http://192.168.4.1](http://192.168.4.1) en druk op START om te rijden.
