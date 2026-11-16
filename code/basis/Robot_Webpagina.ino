@@ -8,9 +8,8 @@ const int SensorCount = 6;
 // ===============================
 // WI-FI CONFIGURATIE (Access Point Modus)
 // ===============================
-// De ESP32 maakt zijn eigen Wi-Fi netwerk aan waar je gsm mee verbindt
 const char* ssid = "ESP32_LineFollower";
-const char* password = "12345678password"; // Minimaal 8 tekens
+const char* password = "12345678password";
 
 WiFiServer server(80);
 
@@ -28,12 +27,12 @@ const int motorB_IN2 = 19;
 const int ledPin = 21;       // LED op D21
 const int buttonPin = 22;   // Drukknop op D22 (interne pull-up)
 
-// Instelbare snelheden (aanpasbaar via de webpagina)
+// Instelbare snelheden
 int baseSpeed = 100;  
 int turnSpeed = 80;   
 
 // ===============================
-// EEPROM & STRUCT
+// EEPROM & STRUCT (Inclusief drempelwaarden)
 // ===============================
 struct param_t
 {
@@ -83,14 +82,24 @@ void setup()
   EEPROM.begin(EEPROM_SIZE);
   EEPROM_readAnything(0, params);
 
-  // Start Wi-Fi in Access Point (AP) modus
+  // Standaardwaarden instellen om deling door nul bij lege EEPROM te voorkomen
+  if (params.cycleTime == 0 || params.cycleTime > 1000000) {
+    params.cycleTime = 20000;
+    for (int i = 0; i < SensorCount; i++) {
+      params.black[i] = 3800; // Standaardwaarde zwart
+      params.white[i] = 500;  // Standaardwaarde wit
+    }
+    EEPROM_writeAnything(0, params);
+  }
+
+  // Start Wi-Fi AP modus
   WiFi.softAP(ssid, password);
   IPAddress myIP = WiFi.softAPIP();
   Serial.println("\n--- Wi-Fi Web Server Gestart ---");
   Serial.print("Verbind je gsm met Wi-Fi: ");
   Serial.println(ssid);
   Serial.print("Open in je browser op je gsm: http://");
-  Serial.println(myIP); // Dit is het IP-adres (vaak 192.168.4.1)
+  Serial.println(myIP);
 
   server.begin();
 
@@ -170,7 +179,7 @@ void loop()
     digitalWrite(ledPin, HIGH);
   }
 
-  // 3. Web Server Verzoeken van GSM afhandelen
+  // 3. Web Server Verzoeken afhandelen
   WiFiClient client = server.available();   
   if (client) {
     String currentLine = "";
@@ -183,7 +192,7 @@ void loop()
         if (c == '\n') {
           if (currentLine.length() == 0) {
             
-            // --- URL COMMANDO'S VERWERKEN ---
+            // --- URL COMMANDO'S ---
             if (requestString.indexOf("GET /start") >= 0) {
               robotRunning = true;
               Serial.println("WEB: Start");
@@ -203,7 +212,24 @@ void loop()
               Serial.print("WEB: Snelheid verlaagd naar: "); Serial.println(baseSpeed);
             }
 
-            // --- HTML PAGINA NAAR GSM STUREN ---
+            // --- SENSOREN KALIBRATIE ROUTINE ---
+            if (requestString.indexOf("GET /calibrate_white") >= 0) {
+              for (int i = 0; i < SensorCount; i++) {
+                params.white[i] = analogRead(analogPins[i]);
+              }
+              EEPROM_writeAnything(0, params);
+              Serial.println("WEB: Wit gekalibreerd en opgeslagen!");
+            }
+
+            if (requestString.indexOf("GET /calibrate_black") >= 0) {
+              for (int i = 0; i < SensorCount; i++) {
+                params.black[i] = analogRead(analogPins[i]);
+              }
+              EEPROM_writeAnything(0, params);
+              Serial.println("WEB: Zwart gekalibreerd en opgeslagen!");
+            }
+
+            // --- HTML PAGINA STUREN ---
             client.println("HTTP/1.1 200 OK");
             client.println("Content-type:text/html");
             client.println("Connection: close");
@@ -212,13 +238,16 @@ void loop()
             client.println("<!DOCTYPE html><html><head>");
             client.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
             client.println("<style>");
-            client.println("body { font-family: Arial; text-align: center; background: #222; color: #fff; margin-top: 30px; }");
+            client.println("body { font-family: Arial; text-align: center; background: #222; color: #fff; margin-top: 20px; }");
             client.println("h1 { color: #4CAF50; }");
-            client.println(".btn { font-size: 20px; padding: 15px 30px; margin: 10px; border: none; border-radius: 8px; cursor: pointer; color: white; width: 80%; max-width: 300px; }");
+            client.println("h2 { color: #ff9800; font-size: 18px; margin-top: 15px; }");
+            client.println(".btn { font-size: 18px; padding: 12px 25px; margin: 8px; border: none; border-radius: 8px; cursor: pointer; color: white; width: 80%; max-width: 300px; }");
             client.println(".btn-start { background-color: #4CAF50; }");
             client.println(".btn-stop { background-color: #f44336; }");
-            client.println(".btn-speed { background-color: #ff9800; }");
-            client.println(".status { font-size: 24px; font-weight: bold; margin: 20px; color: " + String(robotRunning ? "#4CAF50" : "#f44336") + "; }");
+            client.println(".btn-speed { background-color: #2196F3; }");
+            client.println(".btn-cal-w { background-color: #ff9800; }");
+            client.println(".btn-cal-b { background-color: #9c27b0; }");
+            client.println(".status { font-size: 22px; font-weight: bold; margin: 15px; color: " + String(robotRunning ? "#4CAF50" : "#f44336") + "; }");
             client.println("</style></head><body>");
             
             client.println("<h1>ESP32 Lijnvolger</h1>");
@@ -227,8 +256,12 @@ void loop()
             
             client.println("<p><a href=\"/start\"><button class=\"btn btn-start\">START</button></a></p>");
             client.println("<p><a href=\"/stop\"><button class=\"btn btn-stop\">STOP</button></a></p>");
-            client.println("<p><a href=\"/speedup\"><button class=\"btn btn-speed\">Snelheid +</button></a></p>");
-            client.println("<p><a href=\"/speeddown\"><button class=\"btn btn-speed\">Snelheid -</button></a></p>");
+            client.println("<p><a href=\"/speedup\"><button class=\"btn btn-speed\">Snelheid +</button></a>");
+            client.println("<a href=\"/speeddown\"><button class=\"btn btn-speed\">Snelheid -</button></a></p>");
+            
+            client.println("<h2>Kalibratie</h2>");
+            client.println("<p><a href=\"/calibrate_white\"><button class=\"btn btn-cal-w\">Kalibreer WIT</button></a></p>");
+            client.println("<p><a href=\"/calibrate_black\"><button class=\"btn btn-cal-b\">Kalibreer ZWART</button></a></p>");
             
             client.println("</body></html>");
             break;
@@ -243,7 +276,7 @@ void loop()
     client.stop();
   }
 
-  // 4. Sensoren & Lijnvolg-logica (Alleen als robotRunning waar is)
+  // 4. Sensoren & Lijnvolg-logica (Inclusief kalibratie-drempels)
   int sensorValues[SensorCount];
   for (int i = 0; i < SensorCount; i++) {
     sensorValues[i] = analogRead(analogPins[i]);
@@ -253,17 +286,20 @@ void loop()
   {
     int midLeft = sensorValues[2];   
     int midRight = sensorValues[3];  
-    int threshold = 3800; 
 
-    if (midLeft > threshold && midRight > threshold) {
+    // Bepaal de drempelwaarde op basis van de gekalibreerde min/max waarden
+    int thresholdLeft = (params.black[2] + params.white[2]) / 2;
+    int thresholdRight = (params.black[3] + params.white[3]) / 2;
+
+    if (midLeft > thresholdLeft && midRight > thresholdRight) {
       driveMotor(motorA_IN1, motorA_IN2, baseSpeed, true);
       driveMotor(motorB_IN1, motorB_IN2, baseSpeed, false);
     }
-    else if (midLeft > threshold) {
+    else if (midLeft > thresholdLeft) {
       driveMotor(motorA_IN1, motorA_IN2, -turnSpeed, true);
       driveMotor(motorB_IN1, motorB_IN2, baseSpeed, false);
     }
-    else if (midRight > threshold) {
+    else if (midRight > thresholdRight) {
       driveMotor(motorA_IN1, motorA_IN2, baseSpeed, true);
       driveMotor(motorB_IN1, motorB_IN2, -turnSpeed, false);
     }
