@@ -61,5 +61,6 @@ Voeding inschakelen: Plaats twee opgeladen 18650 batterijen in de batterijhouder
 Draadloze verbinding maken (Bluetooth):Zet Bluetooth aan op je laptop of smartphone en koppel met het apparaat ESP32_LineFollower.Open een seriële terminal (zoals PuTTY of Serial Bluetooth Terminal) en maak verbinding met een baudrate van 115200. 
 (Alternatief: Sluit de USB-kabel aan en open de Arduino Seriële Monitor).
 
-Sensoren kalibreren:Wit vlak: Plaats alle 6 sensoren boven het witte oppervlak en stuur het commando white via Bluetooth/Serial.
+Sensoren kalibreren: 
+Wit vlak: Plaats alle 6 sensoren boven het witte oppervlak en stuur het commando white via Bluetooth/Serial.
 Zwart vlak: Plaats alle 6 sensoren boven de zwarte lijn en stuur het commando black via Bluetooth/Serial.Controle: Het systeem print "Waardes opgeslagen in EEPROM!" om te bevestigen dat de kalibratiewaarden bewaard zijn. Sensor-uitlezing controleren: Na kalibratie sturen de sensoren continu hun analoge ADC-waarden (0 - 4095) door op het scherm om te controleren of alle 6 de sensoren (GPIO 36, 39, 34, 35, 32, 33) het verschil tussen zwart en wit correct registreren.   
